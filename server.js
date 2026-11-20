@@ -21,4 +21,7 @@ mongoose.connect(MONGO_URI)
 app.use('/api/auth', authRoutes);
 app.use('/api/employees', employeeRoutes);
 
+// सर्व स्टैटिक फाइल्स
+app.use(express.static('frontend'));
+
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
