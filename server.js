@@ -8,7 +8,7 @@ const employeeRoutes = require('./routes/employeeRoutes');
 
 const app = express();
 
-app.use(json());
+app.use(express.json());
 app.use(cors());
 
 const PORT = process.env.PORT || 5000;
