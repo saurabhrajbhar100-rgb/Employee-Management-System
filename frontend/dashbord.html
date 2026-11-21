@@ -63,6 +63,7 @@
 
 <script>
     let editingId = null;
+    const token = localStorage.getItem('token');
 
     async function fetchEmployees() {
         try {
@@ -101,7 +102,10 @@
         try {
             const res = await fetch(url, {
                 method: method,
-                headers: { 'Content-Type': 'application/json' },
+                headers: { 
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}` 
+                },
                 body: JSON.stringify({ name, email, position, salary })
             });
 
@@ -135,14 +139,21 @@
     async function deleteEmployee(id) {
         if (!confirm('Are you sure you want to delete this employee?')) return;
         try {
-            const res = await fetch(`/api/employees/${id}`, { method: 'DELETE' });
+            const res = await fetch(`/api/employees/${id}`, { 
+                method: 'DELETE',
+                headers: { 
+                    'Authorization': `Bearer ${token}` 
+                }
+            });
             if (res.ok) {
                 fetchEmployees();
             } else {
-                alert('Failed to delete employee');
+                const errorData = await res.json();
+                alert(errorData.error || 'Failed to delete employee');
             }
         } catch (err) {
             console.error('Error deleting employee:', err);
+            alert('Something went wrong.');
         }
     }
 
