@@ -58,7 +58,7 @@
     async function handleAuth(event, type) {
         event.preventDefault();
         const isLogin = type === 'login';
-        const url = `http://localhost:5000/api/auth/${type}`;
+        const url = `/api/auth/${type}`;
 
         const data = isLogin ? {
             email: document.getElementById('loginEmail').value,
